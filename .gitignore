@@ -17,3 +17,6 @@ assets/
 *.json
 build/
 update.sh
+
+# Local flake8 settings
+.flake8
