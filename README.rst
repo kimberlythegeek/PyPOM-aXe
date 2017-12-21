@@ -44,5 +44,5 @@ If you overload ``wait_for_page_to_load()``, you will need to call ``super([YOUR
 Resources
 ----------
 
-- `Issue Tracker <>`_
-- `Code <>`_
+- `Issue Tracker <https://github.com/kimberlythegeek/pypom-axe/issues>`_
+- `Code <https://github.com/kimberlythegeek/pypom-axe>`_
