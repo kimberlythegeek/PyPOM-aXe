@@ -17,7 +17,7 @@ setup(name='pypom-axe',
       description='``pypom-axe`` is a PyPOM extension to integrate \
                 accessibility tests using the aXe API.',
       long_description=readme(),
-      url='',
+      url='https://github.com/kimberlythegeek/pypom-axe',
       author='Kimberly Sereduck',
       author_email='ksereduck@mozilla.com',
       packages=find_packages(),
