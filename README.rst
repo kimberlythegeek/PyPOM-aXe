@@ -55,17 +55,19 @@ If you overload ``wait_for_page_to_load()``, you will need to call ``super([YOUR
      return self
 
 You also have the option to customize the accessibility analysis using the
-parameters ``context``, ``options``, and ``impact``. ``context`` and ``options``
-directly reflect `the parameters used in axe-core <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axerun>`_.
+parameters ``context``, ``options``, and ``impact``.
 
-``impact`` allows you to specify the impact level you wish to check for.
+``context`` and ``options`` directly reflect the parameters used in axe-core.
+For more information on ``context`` and ``options``, view the `aXe
+documentation here <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#parameters-axerun>`_.
 
-Running with an impact of ``minor`` checks for any violations with a severity of
-``minor`` or higher.
+The third parameter, ``impact``, allows you to filter violations by their impact
+level.
 
-The same applies to running with an impact of ``serious``.
+The options are ``'critical'``, ``'serious'`` and ``'minor'``, with the
+default value set to ``None``.
 
-An impact of ``critical`` will only check for critical violations.
+This will filter violations for the impact level specified, and **all violations with a higher impact level**.
 
 .. code-block:: python
 
