@@ -47,16 +47,13 @@ class AxePage(Page):
 
     def impact_included(self, rule, impact):
         """
-        Function to filter for violations iwht specified impact level, and all
+        Function to filter for violations with specified impact level, and all
         violations with a higher impact level.
         """
         if impact == 'minor' or impact is None:
             return True
-        elif impact == 'moderate':
+        elif impact == 'serious':
             if rule['impact'] != 'minor':
-                return True
-        elif impact == 'severe':
-            if rule['impact'] == 'severe' or rule['impact'] == 'critical':
                 return True
         elif impact == 'critical':
             if rule['impact'] == 'critical':
@@ -74,9 +71,9 @@ class AxePage(Page):
 
         return violations
 
-    def wait_for_page_to_load(self):
+    def wait_for_page_to_load(self, context=None, options=None, impact=None):
         super(AxePage, self).wait_for_page_to_load()
-        violations = self.run()
+        violations = self.run(context, options, impact)
         assert len(violations) == 0, self.report(violations)
 
     def report(self, violations):
