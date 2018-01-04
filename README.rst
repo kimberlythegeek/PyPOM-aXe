@@ -18,7 +18,7 @@ To install pypom-axe:
 
 .. code-block:: bash
 
-  $ pip install pypom-axe -i https://testpypi.python.org
+  $ pip install pypom-axe
 
 Usage
 ------
