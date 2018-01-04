@@ -9,19 +9,21 @@ from setuptools import setup, find_packages
 def readme():
     with open('./README.rst') as f:
         readme = f.read()
-    return readme
+    with open('./CHANGELOG.rst') as f:
+        log = f.read()
+    return readme + '\n\n' + log
 
 
 setup(name='pypom-axe',
-      version='0.0.1',
-      description='``pypom-axe`` is a PyPOM extension to integrate \
+      version='0.0.6',
+      description='pypom-axe is a PyPOM extension to integrate \
                 accessibility tests using the aXe API.',
       long_description=readme(),
       url='https://github.com/kimberlythegeek/pypom-axe',
       author='Kimberly Sereduck',
       author_email='ksereduck@mozilla.com',
       packages=find_packages(),
-      package_data={'pypom-axe': ['src/axe.min.js'], },
+      package_data={'pypom_axe': ['src/axe.min.js'], },
       install_requires=[
           'pypom>=1.2.0'
       ],
