@@ -5,6 +5,8 @@
 
 from pypom import Page
 import os
+import json
+import time
 
 _DEFAULT_SCRIPT = os.path.join(os.path.dirname(__file__), 'src', 'axe.min.js')
 
@@ -25,7 +27,7 @@ class AxePage(Page):
         """
         Run axe against the current page.
 
-        :param context: which part of the page to analyze and/or what to exclude.
+        :param context: which part of the page to analyze.
         :param options: dictionary of aXe options.
         """
         template = 'return axe.run(%s).then(function(result){return result;});'
@@ -67,13 +69,16 @@ class AxePage(Page):
         """
         self.inject()
         data = self.execute(context, options)
-        violations = dict((rule['id'], rule) for rule in data['violations'] if self.impact_included(rule, impact))
+        violations = dict((rule['id'], rule) for rule in data['violations']
+                          if self.impact_included(rule, impact))
 
         return violations
 
     def wait_for_page_to_load(self, context=None, options=None, impact=None):
         super(AxePage, self).wait_for_page_to_load()
         violations = self.run(context, options, impact)
+        t = time.strftime("%m_%d_%Y_%H-%M-%S")
+        self.write_results('results/results_%s.json' % t, violations)
         assert len(violations) == 0, self.report(violations)
 
     def report(self, violations):
@@ -101,3 +106,13 @@ class AxePage(Page):
             string += '\n\n\n'
 
         return string
+
+    def write_results(self, name, output):
+        """
+        Write JSON to file with the specified name.
+
+        :param name: Name of file to be written to.
+        :param output: JSON object.
+        """
+        with open(name, 'w+') as f:
+            f.write(json.dumps(output, indent=4))
