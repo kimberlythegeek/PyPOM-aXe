@@ -78,7 +78,8 @@ class AxePage(Page):
         super(AxePage, self).wait_for_page_to_load()
         violations = self.run(context, options, impact)
         t = time.strftime("%m_%d_%Y_%H-%M-%S")
-        self.write_results('results/results_%s.json' % t, violations)
+        title = self.selenium.title
+        self.write_results('results/%s_%s.json' % (title, t), violations)
         assert len(violations) == 0, self.report(violations)
 
     def report(self, violations):
