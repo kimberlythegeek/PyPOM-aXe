@@ -3,15 +3,17 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from pypom import Page
-import os
 import json
+import os
 import time
+
+from pypom import Page
 
 _DEFAULT_SCRIPT = os.path.join(os.path.dirname(__file__), 'src', 'axe.min.js')
 
 
 class AxePage(Page):
+    """Page Object Model to add accessibility testing functionalities."""
 
     def inject(self):
         """
@@ -48,10 +50,7 @@ class AxePage(Page):
         return response
 
     def impact_included(self, rule, impact):
-        """
-        Function to filter for violations with specified impact level, and all
-        violations with a higher impact level.
-        """
+        """Filter violations with specified impact level or higher."""
         if impact == 'minor' or impact is None:
             return True
         elif impact == 'serious':
@@ -64,9 +63,7 @@ class AxePage(Page):
             return False
 
     def run(self, context=None, options=None, impact=None):
-        """
-        Inject aXe, run against current page, and return rules & violations.
-        """
+        """Inject aXe, run against current page, and return rules & violations."""
         self.inject()
         data = self.execute(context, options)
         violations = dict((rule['id'], rule) for rule in data['violations']
@@ -75,6 +72,7 @@ class AxePage(Page):
         return violations
 
     def wait_for_page_to_load(self, context=None, options=None, impact=None):
+        """Run aXe accessibility checks, and write results to file."""
         super(AxePage, self).wait_for_page_to_load()
         violations = self.run(context, options, impact)
         t = time.strftime("%m_%d_%Y_%H-%M-%S")
@@ -83,6 +81,7 @@ class AxePage(Page):
         assert len(violations) == 0, self.report(violations)
 
     def report(self, violations):
+        """Format output of accessibility violations."""
         string = ''
         string += 'Found ' + str(len(violations)) + ' accessibility violations:'
         for violation, rule in violations.items():
