@@ -6,6 +6,8 @@
 import json
 import os
 import time
+import re
+import errno
 
 from pypom import Page
 
@@ -74,9 +76,16 @@ class AxePage(Page):
     def wait_for_page_to_load(self, context=None, options=None, impact=None):
         """Run aXe accessibility checks, and write results to file."""
         super(AxePage, self).wait_for_page_to_load()
+        # Run accessibility tests.
         violations = self.run(context, options, impact)
-        t = time.strftime("%m_%d_%Y_%H-%M-%S")
+
+        # Format file name based on page title and current datetime.
+        t = time.strftime("%m_%d_%Y_%H:%M:%S")
         title = self.selenium.title
+        title = re.sub('[\s\W]', '-', title)
+        title = re.sub('(-|_)+', '-', title)
+
+        # Write JSON results to file
         self.write_results('results/%s_%s.json' % (title, t), violations)
         assert len(violations) == 0, self.report(violations)
 
