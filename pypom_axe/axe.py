@@ -71,9 +71,8 @@ class AxePage(Page):
 
         return violations
 
-    def wait_for_page_to_load(self, context=None, options=None, impact=None):
+    def _after_page_loads(self, context=None, options=None, impact=None):
         """Run aXe accessibility checks, and write results to file."""
-        super(AxePage, self).wait_for_page_to_load()
         violations = self.run(context, options, impact)
         t = time.strftime("%m_%d_%Y_%H-%M-%S")
         title = self.selenium.title
