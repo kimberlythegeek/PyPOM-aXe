@@ -15,7 +15,7 @@ def readme():
 
 
 setup(name='pypom-axe',
-      version='0.0.8',
+      version='0.2.5',
       description='pypom-axe is a PyPOM extension to integrate \
                 accessibility tests using the aXe API.',
       long_description=readme(),
