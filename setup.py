@@ -15,7 +15,7 @@ def readme():
 
 
 setup(name='pypom-axe',
-      version='0.2.5',
+      use_scm_version=True,
       description='pypom-axe is a PyPOM extension to integrate \
                 accessibility tests using the aXe API.',
       long_description=readme(),
@@ -24,6 +24,7 @@ setup(name='pypom-axe',
       author_email='ksereduck@mozilla.com',
       packages=find_packages(),
       package_data={'pypom_axe': ['src/axe.min.js'], },
+      setup_requires=['setuptools_scm'],
       install_requires=[
           'pypom>=1.2.0'
       ],
