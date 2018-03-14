@@ -15,7 +15,7 @@ def readme():
 
 
 setup(name='pypom-axe',
-      version='0.0.8',
+      version='0.2.7',
       description='pypom-axe is a PyPOM extension to integrate \
                 accessibility tests using the aXe API.',
       long_description=readme(),
@@ -23,9 +23,9 @@ setup(name='pypom-axe',
       author='Kimberly Sereduck',
       author_email='ksereduck@mozilla.com',
       packages=find_packages(),
-      package_data={'pypom_axe': ['src/axe.min.js'], },
+      package_data={'PyPOM_aXe': ['src/axe.min.js'], },
       install_requires=[
-          'pypom>=1.2.0'
+          'PyPOM>=1.2.0'
       ],
       license='Mozilla Public License 2.0 (MPL 2.0)',
       keywords='axe-core pypom accessibility automation mozilla')

@@ -6,6 +6,7 @@
 import json
 import os
 import time
+import re
 
 from pypom import Page
 
@@ -68,16 +69,23 @@ class AxePage(Page):
         data = self.execute(context, options)
         violations = dict((rule['id'], rule) for rule in data['violations']
                           if self.impact_included(rule, impact))
-
         return violations
 
-    def _after_page_loads(self, context=None, options=None, impact=None):
+    def _after_wait_for_page_load(self, context=None, options=None, impact=None):
         """Run aXe accessibility checks, and write results to file."""
-        violations = self.run(context, options, impact)
-        t = time.strftime("%m_%d_%Y_%H-%M-%S")
-        title = self.selenium.title
-        self.write_results('results/%s_%s.json' % (title, t), violations)
-        assert len(violations) == 0, self.report(violations)
+        if os.environ.get('ACCESSIBILITY_ENABLED') == 'true':
+            violations = self.run(context, options, impact)
+
+            # Format file name based on page title and current datetime.
+            t = time.strftime("%m_%d_%Y_%H:%M:%S")
+            title = self.selenium.title
+            title = re.sub('[\s\W]', '-', title)
+            title = re.sub('(-|_)+', '-', title)
+
+            if os.environ.get('RECORD_ACCESSIBILITY_RESULTS') == 'true':
+                # Write JSON results to file if recording enabled
+                self.write_results('results/%s_%s.json' % (title, t), violations)
+            assert len(violations) == 0, self.report(violations)
 
     def report(self, violations):
         """Format output of accessibility violations."""
