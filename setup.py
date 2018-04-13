@@ -25,7 +25,7 @@ setup(name='PyPOM-aXe',
       packages=find_packages(),
       package_data={'PyPOM_aXe': ['src/axe.min.js'], },
       install_requires=['PyPOM>=2.0.0'],
-      entry_points={'pypom.plugin': ['axe = PyPOM_aXe.axe']}
+      entry_points={'pypom.plugin': ['axe = PyPOM_aXe.axe']},
       license='Mozilla Public License 2.0 (MPL 2.0)',
       keywords='axe-core pypom accessibility automation mozilla',
       classifiers=[
