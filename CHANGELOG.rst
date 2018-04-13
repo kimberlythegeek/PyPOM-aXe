@@ -1,6 +1,12 @@
 CHANGELOG
 ===========
 
+version 1.0.0
+^^^^^^^^^^^^^^
+- Updated aXe to 3.0.1
+- Updated PyPOM requirement to version 2.0.0
+- Modified PyPOM-aXe to be used as a plugin for PyPOM, instead of inheriting it.
+
 version 0.1.0
 ^^^^^^^^^^^^^^
 - Enabled the use of two new environment variables.
