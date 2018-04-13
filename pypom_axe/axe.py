@@ -72,7 +72,7 @@ def pypom_after_wait_for_page_to_load(page, context=None, options=None, impact=N
     disable_a11y = os.environ.get('ACCESSIBILITY_DISABLED')
     if disable_a11y == 'false' or disable_a11y == None:
         violations = run(page, context, options, impact)
-
+        print(violations)
         # Output results only if reporting is enabled.
         if os.environ.get('ACCESSIBILITY_REPORTING') == 'true':
             # Format file name based on page title and current datetime.
